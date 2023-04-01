@@ -1,20 +1,4 @@
-<form>
-  <div class="form-group row m-4">
-      <label for="country" class="col-sm-2 col-form-label">Select a country</label>
-      <div class="col-sm-10">
-          <select name="country" class="form-control form-select" aria-label="Country" [(ngModel)]="selectedCountry"
-              (change)="onSelected()">
-              <option value="all">All</option>
-              <option *ngFor="let country of countries" [value]="country">
-                  {{country}}
-              </option>
-          </select>
-      </div>
-  </div>
-</form>
-
-
-
-  <div class="card">
+<app-countries-dropdown (countrySelected)="onCountrySelected($event)"></app-countries-dropdown>
+<div class="card">
     <p-chart type="bar" [data]="data" [options]="options"></p-chart>
 </div>

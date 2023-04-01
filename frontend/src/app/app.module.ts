@@ -12,13 +12,15 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { ChartModule } from 'primeng/chart';
+import { CountriesDropdownComponent } from './countries-dropdown/countries-dropdown.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GridComponent,
     ChartComponent,
-    NavbarComponent
+    NavbarComponent,
+    CountriesDropdownComponent
   ],
   imports: [
     BrowserModule,
@@ -28,6 +30,7 @@ import { ChartModule } from 'primeng/chart';
     RouterModule.forRoot([
       {path: 'productions-grid', component: GridComponent},
       {path: 'productions-chart', component: ChartComponent},
+      {path: '', component: GridComponent},
     ]),
     NgbModule,
     FormsModule,

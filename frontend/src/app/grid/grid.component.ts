@@ -11,30 +11,21 @@ export class GridComponent {
   constructor(private productionService: ProductionService) { }
   productions: Production[] = [];
   displayedColumns = ['country', 'monthYear', 'productionPerDay'];
-  selectedCountry: string = 'all';
-  countries: string[] = []
 
-  onSelected() {
-    if (this.selectedCountry == 'all') {
+  onCountrySelected(countryName: string) {
+    console.log('event received my parent ' + countryName)
+    if (countryName == 'all') {
       this.getAllProductions();
     } else {
-      this.productionService.getProductionsForCountry(this.selectedCountry).subscribe(
+      this.productionService.getProductionsForCountry(countryName).subscribe(
         data => this.productions = data,
         error => console.log(error)
       );
     }
   }
 
-  getAllCountries() {
-    this.productionService.getAllCountries().subscribe(
-      countries => this.countries = countries,
-      error => console.log(error)
-    );
-  }
-
   ngOnInit(): void {
     this.getAllProductions();
-    this.getAllCountries();
   }
 
   getAllProductions() {

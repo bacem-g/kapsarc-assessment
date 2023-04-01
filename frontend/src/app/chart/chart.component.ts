@@ -8,13 +8,11 @@ import { ProductionService } from '../production.service';
 export class ChartComponent {
   constructor(private productionService: ProductionService) { }
   documentStyle = getComputedStyle(document.documentElement);
-  selectedCountry: string = 'all';
-  countries: string[] = []
   data: any;
   options: any;
 
-  onSelected() {
-    this.productionService.getProductionsForCountry(this.selectedCountry).subscribe(
+  onCountrySelected(countryName: string) {
+    this.productionService.getProductionsForCountry(countryName).subscribe(
       data => {
         let labels: string[] = [];
         let values: number[] = [];
@@ -41,15 +39,7 @@ export class ChartComponent {
   }
 
   ngOnInit(): void {
-    this.getAllCountries();
     this.initChart();
-  }
-
-  getAllCountries() {
-    this.productionService.getAllCountries().subscribe(
-      countries => this.countries = countries,
-      error => console.log(error)
-    );
   }
 
   initChart() {
