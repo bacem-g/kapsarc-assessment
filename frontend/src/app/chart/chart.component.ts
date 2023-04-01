@@ -1,18 +1,21 @@
 import { Component } from '@angular/core';
 import { ProductionService } from '../production.service';
+import { StateService } from 'src/state/state.service';
 
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html'
 })
 export class ChartComponent {
-  constructor(private productionService: ProductionService) { }
+  constructor(private productionService: ProductionService,
+              private stateService: StateService) { }
   documentStyle = getComputedStyle(document.documentElement);
   data: any;
   options: any;
 
-  onCountrySelected(countryName: string) {
-    this.productionService.getProductionsForCountry(countryName).subscribe(
+  onCountrySelected(selectedCountry: string) {
+    this.updateState(selectedCountry);
+    this.productionService.getProductionsForCountry(selectedCountry).subscribe(
       data => {
         let labels: string[] = [];
         let values: number[] = [];
@@ -40,6 +43,9 @@ export class ChartComponent {
 
   ngOnInit(): void {
     this.initChart();
+    let state = this.stateService.state$.getValue() || {};
+    console.log('state = ' + JSON.stringify(state))
+    this.onCountrySelected(state.country);
   }
 
   initChart() {
@@ -82,6 +88,12 @@ export class ChartComponent {
 
       }
     };
+  }
+
+  updateState(selectedCountry: string) {
+    let state = this.stateService.state$.getValue() || {};
+    state.country = selectedCountry;
+    this.stateService.state$.next(state);
   }
 }
 

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Production } from '.././production.model';
 import { ProductionService } from '.././production.service';
+import { StateService } from '../../state/state.service';
 
 @Component({
   selector: 'app-grid',
@@ -8,16 +9,16 @@ import { ProductionService } from '.././production.service';
   styleUrls: ['./grid.component.css']
 })
 export class GridComponent {
-  constructor(private productionService: ProductionService) { }
+  constructor(private productionService: ProductionService,
+              private stateService: StateService) { }
   productions: Production[] = [];
-  displayedColumns = ['country', 'monthYear', 'productionPerDay'];
 
-  onCountrySelected(countryName: string) {
-    console.log('event received my parent ' + countryName)
-    if (countryName == 'all') {
+  onCountrySelected(selectedCountry: string) {
+    this.updateState(selectedCountry);
+    if (selectedCountry == 'all') {
       this.getAllProductions();
     } else {
-      this.productionService.getProductionsForCountry(countryName).subscribe(
+      this.productionService.getProductionsForCountry(selectedCountry).subscribe(
         data => this.productions = data,
         error => console.log(error)
       );
@@ -25,7 +26,8 @@ export class GridComponent {
   }
 
   ngOnInit(): void {
-    this.getAllProductions();
+    let state = this.stateService.state$.getValue() || {};
+    this.onCountrySelected(state.country);
   }
 
   getAllProductions() {
@@ -34,5 +36,11 @@ export class GridComponent {
       error => console.log(error)
     );
     ;
+  }
+
+  updateState(selectedCountry: string) {
+    let state = this.stateService.state$.getValue() || {};
+    state.country = selectedCountry;
+    this.stateService.state$.next(state);
   }
 }
