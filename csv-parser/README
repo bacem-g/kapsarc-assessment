@@ -1,0 +1,11 @@
+*** How to run this project on localhost ***
+1. Start postgresql by running the command
+```
+docker-compose up
+```
+2. Create the database kapsarcdb
+```
+create database kapsarcdb;
+```
+2. Run CsvParserApplication.java class
+
