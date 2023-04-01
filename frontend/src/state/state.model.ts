@@ -1,3 +1,3 @@
 export class State {
-    country!: string;
+    country: string = '';
 }

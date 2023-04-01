@@ -17,7 +17,7 @@ export class CountriesDropdownComponent {
 
   ngOnInit(): void {
     this.getAllCountries();
-    let state = this.stateService.state$.getValue() || {};
+    let state = this.stateService.state$.getValue();
     this.selectedCountry = state.country;
   }
 

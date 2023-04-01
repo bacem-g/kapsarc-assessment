@@ -43,8 +43,7 @@ export class ChartComponent {
 
   ngOnInit(): void {
     this.initChart();
-    let state = this.stateService.state$.getValue() || {};
-    console.log('state = ' + JSON.stringify(state))
+    let state = this.stateService.state$.getValue();
     this.onCountrySelected(state.country);
   }
 

@@ -1,18 +1,17 @@
 <app-countries-dropdown (countrySelected)="onCountrySelected($event)"></app-countries-dropdown>
 
 <div>
-    <h1>Oil production per day</h1>
+    <h3>Oil production (Thousand barrels per day)</h3>
+    <h3>{{selectedCountry}}</h3>
     <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="col">Country</th>
                 <th scope="col">Month/Year</th>
                 <th scope="col">Value</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let production of productions; index as i">
-                <td>{{ production.country }}</td>
                 <td>{{ production.monthYear }}</td>
                 <td>{{ production.value }}</td>
             </tr>

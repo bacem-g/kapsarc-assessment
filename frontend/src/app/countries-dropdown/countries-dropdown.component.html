@@ -4,7 +4,6 @@
         <div class="col-sm-10">
             <select name="country" class="form-control form-select" aria-label="Country" [(ngModel)]="selectedCountry"
                 (change)="onSelected()">
-                <option value="all">All</option>
                 <option *ngFor="let country of countries" [value]="country">
                     {{country}}
                 </option>

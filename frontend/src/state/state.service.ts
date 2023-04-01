@@ -9,5 +9,5 @@ export class StateService {
 
   constructor() { }
 
-  state$ = new BehaviorSubject<State>({country: 'all'});
+  state$ = new BehaviorSubject<State>({country: ''});
 }

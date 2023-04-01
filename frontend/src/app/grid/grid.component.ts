@@ -12,8 +12,10 @@ export class GridComponent {
   constructor(private productionService: ProductionService,
               private stateService: StateService) { }
   productions: Production[] = [];
+  selectedCountry: string = '';
 
   onCountrySelected(selectedCountry: string) {
+    this.selectedCountry = selectedCountry;
     this.updateState(selectedCountry);
     if (selectedCountry == 'all') {
       this.getAllProductions();
@@ -26,8 +28,10 @@ export class GridComponent {
   }
 
   ngOnInit(): void {
-    let state = this.stateService.state$.getValue() || {};
-    this.onCountrySelected(state.country);
+    let state = this.stateService.state$.getValue();
+    if('country' in state) {
+      this.onCountrySelected(state.country);
+    }
   }
 
   getAllProductions() {
